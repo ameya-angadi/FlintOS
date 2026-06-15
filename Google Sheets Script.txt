@@ -1,0 +1,34 @@
+function doGet() {
+  // Open the spreadsheet and bind to the very first tab
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheets()[0];
+  
+  // UPDATED: Read rows 2 through 6, but start at Column 1 (A) instead of 2 (B)
+  // Range parameters: (startRow, startColumn, numRows, numColumns)
+  var dataRange = sheet.getRange(2, 1, 5, 4); 
+  
+  // Fetch text strings exactly as formatted on screen
+  var values = dataRange.getDisplayValues(); 
+  
+  var stocksArray = [];
+  
+  // Build a structured memory structure by cycling through rows
+  for (var i = 0; i < values.length; i++) {
+    var stockItem = {
+      "symbol": values[i][0], // Added: Column A (Ticker Symbol)
+      "name":   values[i][1], // Column B (Company Name)
+      "price":  values[i][2], // Column C (Current Price)
+      "change": values[i][3]  // Column D (Daily Change %)
+    };
+    stocksArray.push(stockItem);
+  }
+  
+  // Wrap array into a single root JSON object
+  var payload = {
+    "stocks": stocksArray
+  };
+  
+  // Serialize the structure into a text stream and push to network edge gateway
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
+}
