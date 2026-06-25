@@ -5,7 +5,7 @@
 #include <Preferences.h>
 #include "time.h"
 #include "TFT_eSPI.h"
-#include "image.h"
+#include "load_screen_image.h"
 #include "icons.h"
 #include "slideshow_images.h"
 
@@ -15,7 +15,7 @@
 
 // --- Wi-Fi Credentials ---
 const char* WIFI_SSID = "";             // Paste your Wi-Fi SSID / Network Name here
-const char* WIFI_PASSWORD = "";                // Paste your Wi-Fi Router Password here
+const char* WIFI_PASSWORD = "";         // Paste your Wi-Fi Router Password here
 
 // --- API Keys ---
 const char* OWM_API_KEY = ""; // Paste your OpenWeatherMap API Key here
@@ -326,9 +326,17 @@ void loop() {
   // --- STANDARD BACKGROUND TASKS ---
   unsigned long currentMillis = millis();
 
+  // --- 5-Minute Auto-Dismiss for Health Reminder ---
+  // Automatically clear the popup if left unattended for 300,000ms (5 mins)
+  if (isPopupActive && (currentMillis - lastPopupTime >= 300000)) {
+      isPopupActive = false;
+      lastPopupTime = currentMillis; // Restart the 30-min interval from this dismissal
+      needsScreenUpdate = true;      // Force a redraw of the underlying screen
+  }
+
   // Mode Specific Automated Switching Loops
   if (currentMode == MODE_SLIDESHOW) {
-      if (currentMillis - lastSlideshowSwitch >= SLIDESHOW_IMAGE_INTERVAL) {
+      if (!isPopupActive && (currentMillis - lastSlideshowSwitch >= SLIDESHOW_IMAGE_INTERVAL)) {
           lastSlideshowSwitch = currentMillis;
           currentSlideshowImage = (currentSlideshowImage + 1) % NUM_SLIDESHOW_IMAGES;
           needsScreenUpdate = true;
@@ -424,7 +432,7 @@ void handleButtons() {
         (lastStateNext == HIGH && stateNext == LOW) || 
         (lastStateSel == HIGH && stateSel == LOW)) {
         
-        // Wait 80ms to give the human user time to press the second button for a chord
+        // Wait 80ms to give the user time to press the second button for a chord
         delay(80);
         
         // Re-read states to check if multiple buttons are currently held down
@@ -805,7 +813,10 @@ void drawHomeScreen(struct tm& timeinfo) {
   // Calculate Dynamic Left-Align math for the 32x16 Battery Icon
   int batStrLen = batStr.length() * 12; 
   int batteryX = 770 - batStrLen - 38; 
-  epaper.drawBitmap(batteryX, 453, icon_battery, 32, 16, TFT_WHITE, TFT_BLACK);
+  
+  // FIXED: Dynamically map the correct battery icon based on charge limit
+  const unsigned char* currentBatIcon = (batPct > 50) ? icon_battery : icon_battery_half;
+  epaper.drawBitmap(batteryX, 453, currentBatIcon, 32, 16, TFT_WHITE, TFT_BLACK);
 #endif
 }
 
