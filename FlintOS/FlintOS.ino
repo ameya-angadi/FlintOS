@@ -1,3 +1,25 @@
+/*
+ * Project Name: FlintOS
+ * Designed For: TRMNL 7.5" (OG) DIY Kit By Seeed Studio
+ *
+ * License: GPL3+
+ * This project is licensed under the GNU General Public License v3.0 or later.
+ * You are free to use, modify, and distribute this software under the terms
+ * of the GPL, as long as you preserve the original license and credit the original
+ * author. For more details, see <https://www.gnu.org/licenses/gpl-3.0.en.html>.
+ *
+ * Copyright (C) 2026  Ameya Angadi
+ *
+ * Code Created And Maintained By: Ameya Angadi
+ * Last Modified On: July 3, 2026
+ * Version: 1.0.0
+ *
+ * Support my projects by purchasing through the following affiliate link:
+ * TRMNL 7.5" (OG) DIY Kit by Seeed Studio - https://www.seeedstudio.com/TRMNL-7-5-Inch-OG-DIY-Kit-p-6481.html?sensecap_affiliate=JI84v1k&referring_service=link
+ *
+ */
+
+
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
