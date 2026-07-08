@@ -80,7 +80,6 @@ To get a better sense of the ePaper display and how FlintOS actually feels to us
 | **LiPo Battery** | Power supply | 3.7V, 2000mAh (with JST connector) | 1 |
 | **Ribbon Extension Cable** | Connects display to driver board | 24-pin FPC Flat Flexible Cable | 1 |
 | **Flint Chassis** | Hardware enclosure | 3D Printed PLA Frame | 1 |
-|
 
 <br>
 
@@ -94,14 +93,15 @@ Building Flint requires a list of components designed for maximum efficiency and
 The Flint chassis utilizes a sleek, 3D-printed body. For optimal results, print the main body in appropriate orientation. Use PLA with a 0.1-0.2 mm layer height and 20% grid infill. Ensure your slicer orientation provides clean overhangs for the internal display tracks.
 
 (Design By Seeed Studio - [Link](https://www.printables.com/model/1361112-upgrated-triangular-prism-3d-enclosure-for-trmnl-7))
-
-<img src="./Images/3D_Print_1.png" alt="3D Print Image 1" width="48%">
-<img src="./Images/3D_Print_2.png" alt="3D Print Image 2" width="48%">
+<div>
+<img src="./Images/3D_Print_1.png" alt="3D Print Image 1" width="45%">
+<img src="./Images/3D_Print_2.png" alt="3D Print Image 2" width="45%">
+</div>
 
 ## Step 2: Surface Finishing
 A clean finishing process is critical. Remove any stringing or burrs from the print. Carefully edge-sand the inner locking mechanism using fine-grit sandpaper to ensure tight mechanical tolerances for a seamless snap-fit assembly. Sand the required surfaces as needed. The areas I sanded are shown below.
 ![Surface Finishing Image 1](./Images/Surface_Finishing_1.jpg)
-<center><img src="./Images/Surface_Finishing_2.jpg" alt="Surface Finishing Image 2" width="50%"></center>
+<div><img src="./Images/Surface_Finishing_2.jpg" alt="Surface Finishing Image 2" width="50%"></div>
 
 ## Step 3: Display Insertion
 Gently take the delicate 7.5" glass ePaper panel and slide it into the main frame tracks. Ensure you apply even, gentle pressure from the edges to avoid cracking the fragile display. If needed use thin double sided tape to keep the display held in place. The image below shows that the display has been inserted in the frame, and the FPC Cable is gently pulled through the slit in the frame with the help of tweezers. 
